@@ -14,7 +14,7 @@ void get(string &name, unordered_map<string, long long> &phonebook)
 void setNum(string &name, long long number, unordered_map<string, long long> &phonebook)
 {
     phonebook[name] = number;
-    cout<<"number saved succesfully"<<endl;
+    cout << "number saved succesfully" << endl;
 }
 void del(string &name, unordered_map<string, long long> &phonebook)
 {
@@ -28,6 +28,21 @@ void del(string &name, unordered_map<string, long long> &phonebook)
         cout << "not found!" << endl;
     }
 }
+void save(const string filename, unordered_map<string, long long> &phonebook)
+{
+    ofstream book(filename,ios::app);
+    string content;
+    if (book.is_open())
+    {
+        for (auto it : phonebook)
+        {
+            book << it.first << ":" << it.second << endl;
+        }
+    }
+    else
+        cout << "couldn't open the file" << endl;
+    book.close();
+}
 int main()
 {
     cout << "commads: get | set | del | exit" << endl;
@@ -35,10 +50,7 @@ int main()
     long long number;
     string command;
     unordered_map<string, long long> phonebook;
-    string input;
-    cout << "do you want to add number?y/n" << endl;
-    if(input=="n")cout<<"exiting..."<<endl;
-    cin >> input;
+    string input = "y";
     while (input == "y")
     {
         cout << "enter your command : " << endl;
@@ -63,12 +75,34 @@ int main()
         }
         else if (command == "exit" || command == "Exit")
         {
-            cout<<"exiting the program,bye...."<<endl;
+            cout << "exiting the program,bye...." << endl;
             break;
         }
-        cout << "do you want to continue?y/n" << endl;
-        cin >> input;
-        
+        else
+        {
+            cout << "wrong command! do you want to continue?y/n" << endl;
+            cin >> input;
+            if (input == "n")
+                cout << "exiting te program! Bye" << endl;
+        }
     }
+    cout << "enter s to save the data or l to load the data!" << endl;
+    cin >> command;
+    while (true)
+    {
+        if (command == "s")
+        {
+            cout << "enter the file name where you want to save: " << endl;
+            string filename;
+            cin >> filename;
+            save(filename, phonebook);
+        }
+
+        cout << "continue? y/n : " << endl;
+        cin >> input;
+        if (input == "n")
+            break;
+    }
+
     return 0;
 }
