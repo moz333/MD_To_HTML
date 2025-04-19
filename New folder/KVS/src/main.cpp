@@ -30,7 +30,7 @@ void del(string &name, unordered_map<string, long long> &phonebook)
 }
 void save(const string filename, unordered_map<string, long long> &phonebook)
 {
-    ofstream book(filename,ios::app);
+    ofstream book(filename, ios::app);
     string content;
     if (book.is_open())
     {
@@ -41,6 +41,20 @@ void save(const string filename, unordered_map<string, long long> &phonebook)
     }
     else
         cout << "couldn't open the file" << endl;
+    book.close();
+}
+void load(string filename, string content)
+{
+    ifstream book(filename);
+    if (book.is_open())
+    {
+        while (getline(book, content))
+        {
+            cout << content << endl;
+        }
+    }
+    else
+        cout << "couldn't open the file!" << endl;
     book.close();
 }
 int main()
@@ -90,18 +104,27 @@ int main()
     cin >> command;
     while (true)
     {
+        string filename;
+        string content;
         if (command == "s")
         {
             cout << "enter the file name where you want to save: " << endl;
-            string filename;
+
             cin >> filename;
             save(filename, phonebook);
         }
-
+        if (command == "l")
+        {
+            cout << "enter the file you want to open" << endl;
+            cin >> filename;
+            load(filename, content);
+        }
         cout << "continue? y/n : " << endl;
         cin >> input;
         if (input == "n")
             break;
+        else
+            cin >> command;
     }
 
     return 0;
