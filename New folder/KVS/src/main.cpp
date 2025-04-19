@@ -1,6 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
-void get(string &name, unordered_map<string, long> &phonebook)
+void get(string &name, unordered_map<string, long long> &phonebook)
 {
     if (phonebook.find(name) != phonebook.end())
     {
@@ -11,12 +11,12 @@ void get(string &name, unordered_map<string, long> &phonebook)
         cout << "not found!" << endl;
     }
 }
-void setNum(string &name, long number, unordered_map<string, long> &phonebook)
+void setNum(string &name, long long number, unordered_map<string, long long> &phonebook)
 {
     phonebook[name] = number;
     cout<<"number saved succesfully"<<endl;
 }
-void del(string &name, unordered_map<string, long> &phonebook)
+void del(string &name, unordered_map<string, long long> &phonebook)
 {
     if (phonebook.find(name) != phonebook.end())
     {
@@ -32,9 +32,9 @@ int main()
 {
     cout << "commads: get | set | del | exit" << endl;
     string name;
-    long number;
+    long long number;
     string command;
-    unordered_map<string, long> phonebook;
+    unordered_map<string, long long> phonebook;
     string input;
     cout << "do you want to add number?y/n" << endl;
     if(input=="n")cout<<"exiting..."<<endl;
@@ -53,7 +53,6 @@ int main()
         {
             cout << "enter name and number" << endl;
             cin >> name >> number;
-            cin.ignore();
             setNum(name, number, phonebook);
         }
         else if (command == "del" || command == "Del")
